@@ -9,21 +9,19 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 
-import { HomeIcon, PlusIcon, ClockIcon, CheckIcon, XIcon } from "lucide-react";
-// import DoctorDetailSheet from "./DoctorDetailSheet";
+import { HomeIcon, PlusIcon, ClockIcon} from "lucide-react";
+import { Button } from "@/components/ui/button"
 import Link from "next/link";
 
-const DoctorCard = ({ request, isAdmin, onAccept, onReject }) => (
-  <Card key={request._id}>
+
+const DoctorCard = ({ request, isHome  }) => (
+  <Card key={request.id} className={'my-10'}>
     <CardHeader className="flex flex-row items-center space-x-4">
-      <Avatar className="h-10 w-10">
-        <AvatarImage src={'https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Finstagram-profile&psig=AOvVaw220m3fkzy2yoQ7DvcM0InT&ust=1732112871702000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCKChp7jN6IkDFQAAAAAdAAAAABAE'} alt={"pic"} />
-        <AvatarFallback>
-          {request.user}
-        </AvatarFallback>
-      </Avatar>
+    <Avatar>
+      <AvatarImage src="https://github.com/shadcn.png" />
+     <AvatarFallback>CN</AvatarFallback>
+   </Avatar>
       <div>
         <CardTitle>{`${request.name}`}</CardTitle>
         <CardDescription className="capitalize">
@@ -31,7 +29,8 @@ const DoctorCard = ({ request, isAdmin, onAccept, onReject }) => (
         </CardDescription>
       </div>
     </CardHeader>
-
+     {
+      isHome && 
     <CardContent>
       <div className="space-y-2">
         <div className="flex justify-between items-center">
@@ -58,56 +57,12 @@ const DoctorCard = ({ request, isAdmin, onAccept, onReject }) => (
       </div>
     </CardContent>
 
+     }
     <CardFooter className="justify-between">
-      {/* <DoctorDetailSheet doctor={request} /> */}
-      {isAdmin ? (
-        <div>
-          {request.status === "rejected" ? (
-            <Button
-              size="icon"
-              variant="outline"
-              className="bg-red-50 hover:bg-red-100 text-red-600"
-            >
-              <XIcon className="h-4 w-4" />
-              <span className="sr-only">Rejected doctor request</span>
-            </Button>
-          ) : request.status === "accepted" ? (
-            <Button
-              size="icon"
-              variant="outline"
-              className="bg-green-50 hover:bg-green-100 text-green-600"
-            >
-              <CheckIcon className="h-4 w-4" />
-              <span className="sr-only">Accepted doctor request</span>
-            </Button>
-          ) : (
-            <div className="space-x-2">
-              <Button
-                size="icon"
-                variant="outline"
-                className="bg-green-50 hover:bg-green-100 text-green-600"
-                onClick={onAccept}
-              >
-                <CheckIcon className="h-4 w-4" />
-                <span className="sr-only">Accept doctor request</span>
-              </Button>
-              <Button
-                size="icon"
-                variant="outline"
-                className="bg-red-50 hover:bg-red-100 text-red-600"
-                onClick={onReject}
-              >
-                <XIcon className="h-4 w-4" />
-                <span className="sr-only">Reject doctor request</span>
-              </Button>
-            </div>
-          )}
-        </div>
-      ) : (
-        <Link href={`/doctors/${request._id}`}>
-          <Button>Book Appointment</Button>
-        </Link>
-      )}
+      {/* <Button><DoctorDetailSheet doctor={doctors}/></Button> */}
+      <Link href={`/doctors/${request.id}`}>
+      <Button>Book Appointment</Button>
+      </Link>
     </CardFooter>
   </Card>
 );

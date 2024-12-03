@@ -1,5 +1,7 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import {  Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -13,6 +15,7 @@ function classNames(...classes) {
 }
 
 export default function Header() {
+  const session = null;
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto container max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -59,10 +62,12 @@ export default function Header() {
             >
               <span className="absolute -inset-1.5" />
               <span className="sr-only">View notifications</span>
-              <BellIcon aria-hidden="true" className="size-6" />
+              {/* <BellIcon aria-hidden="true" className="size-6" /> */}
             </button>
 
             {/* Profile dropdown */}
+            {
+              session ? 
             <Menu as="div" className="relative ml-3">
               <div>
                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -80,31 +85,30 @@ export default function Header() {
                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
               >
                 <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
-                  >
-                    Your Profile
-                  </a>
+                <Link href={'/Profile'}>
+                    <span className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none">
+                    Profile
+                    </span>
+                </Link>
                 </MenuItem>
                 <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
-                  >
-                    Settings
-                  </a>
+                <Link href={'/Appoitment'}>
+                <span className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none">
+                    My Appointments
+                    </span>
+                </Link>
                 </MenuItem>
                 <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
-                  >
+                <span className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none">
                     Sign out
-                  </a>
+                    </span>
                 </MenuItem>
               </MenuItems>
-            </Menu>
+            </Menu> :
+            <Link href={'/SignIn'}>
+            <Button>LogIn</Button>
+            </Link>
+            }
           </div>
         </div>
       </div>

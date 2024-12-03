@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
     <Hero />
-<DoctorsSection/>
+   <DoctorsSection isHome={true}/>
     </>
   );
     
